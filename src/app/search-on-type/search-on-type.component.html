@@ -1,0 +1,47 @@
+<div class="card">
+  <h2>Rick & Morty Database</h2>
+  <form (ngSubmit)="search()" autocomplete="off">
+    <input
+      pInputText
+      type="text"
+      name="term"
+      [(ngModel)]="term"
+      placeholder="Search {{ activeFilter | titlecase }}"
+    />
+    <div class="buttons">
+      <button *ngFor="let filter of filters" 
+      pButton [class.p-button-outlined]="filter!==activeFilter"  (click)="filterActive(filter)" >{{filter | titlecase}}  </button>
+   
+      <button pButton class="p-button-success clean" (click)="clean()">
+        Clean Filter
+      </button>
+    </div>
+  </form>
+ 
+</div>
+<p-table [tableStyle]="{ 'min-width': '50rem' }" [value]="characters">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Status</th>
+      <th>Image</th>
+      <th>Specie</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-character>
+    <tr>
+      <td>{{ character.name }}</td>
+      <td>{{ character.location.name }}</td>
+      <td>{{ character.status }}</td>
+      <td>
+        <img
+          class="imgSize"
+          src="{{ character.image }}"
+          alt="{{ character.name }} image"
+        />
+      </td>
+      <td>{{ character.species }}</td>
+    </tr>
+  </ng-template>
+</p-table>
